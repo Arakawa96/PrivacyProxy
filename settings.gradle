@@ -1,0 +1,56 @@
+pluginManagement {
+    Properties properties = new Properties()
+    File propertyFile = new File(rootDir.getAbsolutePath() + "/local.properties")
+    properties.load(propertyFile.newDataInputStream())
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        maven {
+            credentials {
+                username properties.getProperty("aliyun.maven.userName")
+                password properties.getProperty("aliyun.maven.password")
+            }
+            url properties.getProperty("aliyun.maven.url")
+        }
+        maven {
+            credentials {
+                username properties.getProperty("aliyun.maven.userName")
+                password properties.getProperty("aliyun.maven.password")
+            }
+            url properties.getProperty("aliyun.maven.snapshotUrl")
+        }
+    }
+}
+dependencyResolutionManagement {
+
+    Properties properties = new Properties()
+    File propertyFile = new File(rootDir.getAbsolutePath() + "/local.properties")
+    properties.load(propertyFile.newDataInputStream())
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            credentials {
+                username properties.getProperty("aliyun.maven.userName")
+                password properties.getProperty("aliyun.maven.password")
+            }
+            url properties.getProperty("aliyun.maven.url")
+        }
+        maven {
+            credentials {
+                username properties.getProperty("aliyun.maven.userName")
+                password properties.getProperty("aliyun.maven.password")
+            }
+            url properties.getProperty("aliyun.maven.snapshotUrl")
+        }
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "PrivacyProxy"
+include ':app'
+include(":lib-privacy")
+includeBuild("./Plugin")
